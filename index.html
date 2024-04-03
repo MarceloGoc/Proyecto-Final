@@ -4,14 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="./codigo.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title> Formulario de actividades de instalación de cable </title>
 </head>
 <body>
-    <h1>Registro de Actividades de Instalación de Cable</h1>
-    <p>
-    Se trata de una calculadora que genere tikets. Que les permita a los instaladores de cable tv e internet, 
-    llevar un registro de las actividades que realizan en el domicilio y el costo de las mismas para su facturación.
-    La idea seria usar una libreria ajax para poder generar un pdf con los datos de la empresa y los items a facturar.
-    </p>
+    <h1>TECO</h1>
+    <P id="p1">Bienvenidos a Teco! <br> Por favor, para cargar nuestros servicios 
+        de Internet y Cable TV complete el registro con los datos del cliente 
+        y haga click en empezar.<br>
+        Al finalizar el registro podra enviar el comprobante de servicio al 
+        solicitante </P>
+    <div id="p2"></div>
+    <div id="div1" class="container">
+        <form id="datosForm" class="form1">
+            <label>Nombre</label><br>
+                <input type="text" id="nombre"  required><br><br>
+            <label>Correo</label><br>
+                <input type="text" id="mail" required><br><br>
+            <label>Direccion</label><br>
+                <input type="text" id="dir"  required><br><br>
+            <label>Fecha</label><br>
+                <input type="date" id="fecha" required><br><br>
+            <button type="button" id="boton1">Empezar</button>
+            <button type="button" id="boton2">Última venta</button>    
+        </form>
+    </div>
+    <div id="div2" class="container2"></div>
+    <div id="div3" class="container3"></div>
 </body>
 </html>
