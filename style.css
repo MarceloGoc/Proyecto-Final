@@ -5,7 +5,8 @@
     box-sizing: border-box;
     text-decoration: none;
     background-color: black;
-    
+    color: #ffff;
+    text-align: center;
 }
 
 h1 {
@@ -41,6 +42,7 @@ input{
     border-radius: 5px;
     outline: none;
     text-align: center;
+    color: black;
 }
 label{
     color: #04bd7d;
@@ -107,7 +109,4 @@ span {
     text-align: center;
 }
 
-.divFinal button {
-    margin-left: 300px;  
-}
 
