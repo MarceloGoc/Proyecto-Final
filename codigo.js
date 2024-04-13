@@ -51,6 +51,8 @@ function RegistrarDatos(){
     localStorage.setItem('datos',JSON.stringify(datos));
     const p1 = document.getElementById("p1");
     const div1 = document.getElementById("div1");
+    const h3 =document.getElementById("h3");
+    h3.remove();
     p1.remove();
     div1.remove();
     cambioRegistro = true;
@@ -68,10 +70,10 @@ summitCont.className = "SumButton";
 summitCont.innerHTML = `<button id="sumButton">Registrar</button>`;
 
 function nuevaTabla() {
-    parrafo2.innerHTML = `<p>Bocas de Cable TV: Es el servicio clasico con 80 canales. Solo puede haber un maximo de 5 por domicilio <br><br>
-    Decos clasico HD y Smart 4k: Debe haber una boca de cable por cada decodificador para poder cargarlos.<br>
+    parrafo2.innerHTML = `<p><span class="verde">Bocas de Cable TV:<span> Es el servicio clasico con 80 canales. Solo puede haber un maximo de 5 por domicilio <br><br>
+    <span class="verde">Decos clasico HD y Smart 4k:<span> Debe haber una boca de cable por cada decodificador para poder cargarlos.<br>
     Se pueden convinar a pedido del cliente. <br><br>
-    Cable modem de internet 100 o 300 MB:Solo se puede elegir un servicio por domicilio 100 o 300 MB<br><br>
+    <span class="verde">Cable modem de internet 100 o 300 MB:<span> Solo se puede elegir un servicio por domicilio 100 o 300 MB<br><br>
     El sistema no va a dejarte cargar actividades fuera de esos parametros. Es importante que acuerdes con el cliente </p>`
     actividades.forEach((actividad) => {
         let contenedor = document.createElement("div");
@@ -84,6 +86,7 @@ function nuevaTabla() {
                                     <span class="counter" data-id="${actividad.id}">0</span>
                                     <button class="boton-plus" data-id="${actividad.id}">+</button>
                                     <input class="parcial" data-id="${actividad.id}" value="${totalInic}"></input>`;
+        registroActividades.className = "container2"
         registroActividades.appendChild(contenedor);
     });
     
@@ -194,12 +197,14 @@ function guardarDatos() {
 function nuevaTabla2(){
 
     let registroActividades2 = document.getElementById("div3");
+    let h2 = document.createElement("h2")
+    let contenidoH2 = `Resumen de productos`
     let registroFinal= document.createElement("div");
     registroFinal.className = "divFinal";
-    let contenido = `<h2>Resumen de productos</h2>
+    let contenido = `
                      <p>En la fecha ${datos.fecha} se genera un pedido de instalación 
                      a nombre de ${datos.nombre}, con domicilio en ${datos.direccion}. 
-                     El mismo consta de:`;
+                     El mismo consta de: <br>`;
 
     registroProductos.forEach((producto) => {
         if (producto.cantidad > 0) {contenido += `<br>- ${producto.cantidad} ${producto.producto} por un parcial de $${producto.total}`;
@@ -207,10 +212,11 @@ function nuevaTabla2(){
     });
 
 
-    contenido += `.</p>`;
+    contenido += `<br><br>El costo mensual del servicio será de: $ ${totalValue}</p>
+    <button class="reiniciar" id="reiniciar">Ir al inicio</button>`;
     registroFinal.innerHTML = contenido;
-    registroFinal.innerHTML += `<p>El costo mensual del servicio será de: $ ${totalValue}</p>
-                            <button class="reiniciar" id="reiniciar">Ir al inicio</button>`
+    h2.innerHTML = contenidoH2
+    registroActividades2.appendChild(h2)
     registroActividades2.appendChild(registroFinal);
     let reinicio = document.getElementById("reiniciar");
     reinicio.onclick = () => {
@@ -219,6 +225,7 @@ function nuevaTabla2(){
 };
 
 function ultimaVenta() {
+    h3.remove();
     p1.remove();
     div1.remove();
     let pVenta = document.getElementById("div2");
@@ -232,7 +239,7 @@ function ultimaVenta() {
     contenedor.innerHTML = `<h2>Resumen de productos</h2>
     <p>En la fecha ${datos.fecha} se genera un pedido de instalación 
     a nombre de ${datos.nombre}, con domicilio en ${datos.direccion}. 
-    El mismo consta de:`;
+    El mismo consta de: <br>`;
 
     registroProductos.forEach((producto) => {
         if (producto.cantidad > 0) {
