@@ -4,9 +4,15 @@
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     text-decoration: none;
-    background-color: black;
+    background-color: none;
     color: #ffff;
     text-align: center;
+    
+}
+
+body {
+    background-image: url(fondo2.png);
+    background-color: black;
 }
 
 h1 {
