@@ -4,29 +4,66 @@
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     text-decoration: none;
-    background-color: none;
+    
     color: #ffff;
     text-align: center;
-    
+    align-items: center;
 }
 
 body {
-    background-image: url(fondo2.png);
+
+    background-size: cover;
+    background-repeat: repeat;
+    background-attachment: fixed;
     background-color: black;
+    background-size: auto;
+    background-image: linear-gradient(rgba(5, 7 , 12, 0.75),rgba(5,7,12,0.75)), url(fondo2.png);
 }
+
+
+* button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 1ms;
+    font-size: 15px;
+    width: 100px;
+}
+
+* button:hover{
+    background-color: #167554;
+}
+
 
 h1 {
     color: #04bd7d ;
     text-align: center;
-    padding: 20px;
+    padding: 7px;
 }
 
+h3 {
+    color: #04bd7d;
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+
+h2 {
+    color: #04bd7d;
+    
+}
 p {
     padding: 20px;
+    display: flex;
+    justify-content: center;
     text-align: center;
     color: white;
     font-size: 12px;
 }
+
+li {
+    font-size: 12px;
+}
+
 .container {
     width: 100%;
     display: flex;
@@ -38,6 +75,7 @@ p {
     width: 100%;
     max-width: 450px;
     background-color: #2c2f35;
+    opacity: 0.9;
     padding: 50px 60px 70px;
     text-align: center;
     border-radius: 25px;
@@ -63,9 +101,10 @@ button{
     
 }
 
-span {
+.counter {
     color: #ffff;
     padding: 5px;
+    background-color: #2c2f35;
 }
 
 .Form2 {
@@ -74,6 +113,8 @@ span {
     justify-content: center;  
     text-align: center;  
     font-size: 14px;
+    background-color: #2c2f35;
+    opacity: 0.9;
 }
 
 .Form2 label {
@@ -89,12 +130,17 @@ span {
     margin-left:20px ;
 }
 
+.Form2 button {
+    width: 25px;
+}
+
 .divTotal {
     padding: 15px;
     display: flex;           
     align-items: center;    
     justify-content: center;  
     text-align: center;
+    background-color: #2c2f35;
     
 }
 
@@ -113,6 +159,58 @@ span {
     align-items: center;    
     justify-content: center;  
     text-align: center;
+    background-color: #2c2f35;
 }
 
 
+.container2 {
+    background-color: #2c2f35;
+    opacity: 0.9;
+    padding: 30px 60px;
+    text-align: center;
+    border-radius: 25px;
+    max-width: 450px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.divFinal {
+    background-color: #2c2f35;
+    opacity: 0.9;
+    padding: 30px 60px;
+    border-radius: 25px;
+    max-width: 450px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    
+}
+
+
+.divFinal li {
+    font-size: 12px;
+}
+
+.verde {
+    background-color: transparent;
+    color: #04bd7d;
+   
+}
+
+
+    
+.uVenta {
+    background-color: #2c2f35;
+    opacity: 0.9;
+    padding: 30px 60px;
+    border-radius: 25px;
+    max-width: 450px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
