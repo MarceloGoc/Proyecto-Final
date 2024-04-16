@@ -35,6 +35,8 @@ const actividades = [
 
 let cambioRegistro = false;
 let datos = {};
+let ventas = [];
+let registroProductos = [];
 
 function RegistrarDatos(){
     let nombre = document.getElementById("nombre").value;
@@ -48,7 +50,7 @@ function RegistrarDatos(){
         fecha: fecha,
         direccion: direccion
     };
-    localStorage.setItem('datos',JSON.stringify(datos));
+    
     const p1 = document.getElementById("p1");
     const div1 = document.getElementById("div1");
     const h3 =document.getElementById("h3");
@@ -164,19 +166,30 @@ function RegistrarDatos2(){
     totalValue = document.getElementById("totalIn").value;
     const div2 = document.getElementById("div2");
     const p2 = document.getElementById("p2");
-    guardarDatos();
+    guardarDatos();   
     p2.remove();
     div2.remove();
     cambioRegistro2 = true;
-    if (cambioRegistro2) {
-        
+    if (cambioRegistro2) {  
         nuevaTabla2();
-    }
+    };
+    let ventas = JSON.parse(localStorage.getItem('ventas')) || [];
+function guardarVenta() {
+    const venta = {
+        datos: datos,
+        productos: registroProductos,
+        total: totalValue
+    };
+    ventas.push(venta);
+    localStorage.setItem("ventas", JSON.stringify(ventas));
+    registroProductos = [];
 }
+guardarVenta();
+};
 
-let registroProductos = [];
 
 function guardarDatos() {
+    registroProductos = [];
     actividades.forEach((actividad) => {
         let id = actividad.id;
         let producto = actividad.producto;
@@ -190,7 +203,7 @@ function guardarDatos() {
             precio: precio,
             total: total
         });
-        localStorage.setItem("registroProductos", JSON.stringify(registroProductos));
+        
     });
 }
 
@@ -224,43 +237,76 @@ function nuevaTabla2(){
     };
 };
 
+let indiceVentaActual = 0;
+
 function ultimaVenta() {
-    h3.remove();
-    p1.remove();
-    div1.remove();
-    let pVenta = document.getElementById("div2");
-    let h2 = document.createElement("h2")
-    let contenidoH2 = `Resumen de productos`
-    let contenedor = document.createElement("div");
-    contenedor.className = "uVenta";
-    let datosGuardados = localStorage.getItem(`datos`);
-    let datos = JSON.parse(datosGuardados);
-    let productosGuardados = localStorage.getItem(`registroProductos`);
-    let registroProductos = JSON.parse(productosGuardados);
-    let totalSum = 0; 
+    let pElement = document.querySelector('body > p');
+    if (pElement) {
+    pElement.remove();
+}
+    while (div2.firstChild) {
+        div2.removeChild(div2.firstChild);
+    }
+    while (div1.firstChild) {
+        div1.removeChild(div1.firstChild);
+    }
 
-    contenedor.innerHTML = `
-    <p>En la fecha ${datos.fecha} se genera un pedido de instalación 
-    a nombre de ${datos.nombre}, con domicilio en ${datos.direccion}. 
-    El mismo consta de: </p>`;
-
-    registroProductos.forEach((producto) => {
-        if (producto.cantidad > 0) {
-            contenedor.innerHTML += `<br><li> ${producto.cantidad} ${producto.producto} por un parcial de $${producto.total}</li>`;
-            totalSum += producto.total; 
+    let ventasGuardadas = localStorage.getItem('ventas');
+    let ventas = JSON.parse(ventasGuardadas);
+    if (!ventas || ventas.length === 0) {
+        div2.innerHTML = `<h3>No hay ventas guardadas</h3><br><br>`;
+    } else {
+        let venta = ventas[indiceVentaActual];
+        let contenedor = document.createElement("div");
+        contenedor.className = "uVenta";
+        contenedor.innerHTML = `
+            <h3>Venta ${indiceVentaActual + 1}</h3>
+            <p>En la fecha ${venta.datos.fecha} se generó una venta a nombre de ${venta.datos.nombre}, con domicilio en ${venta.datos.direccion}. El mismo consta de:</p>`;
+        venta.productos.forEach((producto) => {
+            if (producto.cantidad > 0) {
+                contenedor.innerHTML += `<li>${producto.cantidad} ${producto.producto} por un total de $${producto.total}</li>`;
+            }
+        });
+        contenedor.innerHTML += `<p>El costo mensual del servicio será de: $ ${venta.total}</p>`;
+        contenedor.innerHTML += `<button class="borrarVenta" data-index="${indiceVentaActual}">Borrar venta</button>`;
+        let botonesBorrar = contenedor.querySelectorAll('.borrarVenta');
+        botonesBorrar.forEach((boton) => {
+            boton.addEventListener('click', function() {
+                let index = this.getAttribute('data-index');
+                ventas.splice(index, 1);
+                localStorage.setItem('ventas', JSON.stringify(ventas));
+                indiceVentaActual = 0; 
+                ultimaVenta(); 
+            });
+        });
+        div2.appendChild(contenedor);
+        if (indiceVentaActual > 0) {
+            let botonAnterior = document.createElement("button");
+            botonAnterior.textContent = "Anterior";
+            botonAnterior.addEventListener("click", function() {
+                indiceVentaActual--;
+                ultimaVenta();
+            });
+            div2.appendChild(botonAnterior);
         }
-     });
-
-    contenedor.innerHTML += `<p>El costo mensual del servicio será de: $ ${totalSum}</p>
-                             <button class= "Reiniciar" id="reiniciar">Ir al inicio</button> `;
-    h2.innerHTML = contenidoH2
-    pVenta.appendChild(h2)
-    pVenta.appendChild(contenedor);
-    let reinicio = document.getElementById("reiniciar");
-    reinicio.onclick = () => {
+        if (indiceVentaActual < ventas.length - 1) {
+            let botonSiguiente = document.createElement("button");
+            botonSiguiente.textContent = "Siguiente";
+            botonSiguiente.addEventListener("click", function() {
+                indiceVentaActual++;
+                ultimaVenta();
+            });
+            div2.appendChild(botonSiguiente);
+        }
+    }
+    let botonInicio = document.createElement("button");
+    botonInicio.textContent = "Ir al inicio";
+    botonInicio.addEventListener("click", function() {
         location.reload();
-    };
+    });
+    div2.appendChild(botonInicio);
 };
+
 
 
 
