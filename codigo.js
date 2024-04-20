@@ -14,34 +14,7 @@ document.getElementById("boton2").addEventListener("click",function(){
     ultimaVenta()
 });
 
-const actividades = [
-    {   
-        id: "1",
-        producto: "Boca de Cable TV",
-        precio: 500
-    },
-    {   
-        id: "2",
-        producto: "Deco clasico HD ",
-        precio: 250
-    },
-    {   
-        id: "3",
-        producto: "Deco Smart TV 4K",
-        precio: 650
-    },
-    {   
-        id: "4",
-        producto: "Internet 100 MB ",
-        precio: 750
-    },
-    {   
-        id: "5",
-        producto: "Internet 300 MB ",
-        precio: 1000
-    }
-];
-
+let actividades = [];
 let cambioRegistro = false;
 let datos = {};
 let ventas = [];
@@ -52,6 +25,13 @@ let error2 = `<span class="material-symbols-outlined">warning</span><br>
 <b>Todos los campos son requeridos</b>`
 let footerError = document.getElementById("error");
 let errorCampos = document.createElement("div");
+
+fetch("../db/data.json")
+    .then(response => response.json())
+    .then(data => {
+        actividades = data;
+    });
+    
 
 function footerMensaje (mensaje) {
     if (footerError.contains(errorCampos)) {

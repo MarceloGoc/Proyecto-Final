@@ -1,0 +1,27 @@
+[
+    {   
+        "id": "1",
+        "producto": "Boca de Cable TV",
+        "precio": 500
+    },
+    {   
+        "id": "2",
+        "producto": "Deco clasico HD ",
+        "precio": 250
+    },
+    {   
+        "id": "3",
+        "producto": "Deco Smart TV 4K",
+        "precio": 650
+    },
+    {   
+        "id": "4",
+        "producto": "Internet 100 MB ",
+        "precio": 750
+    },
+    {   
+        "id": "5",
+        "producto": "Internet 300 MB ",
+        "precio": 1000
+    }
+]
