@@ -1,5 +1,14 @@
-document.getElementById("boton1").addEventListener("click", function(){
-    RegistrarDatos()
+document.getElementById("boton1").addEventListener("click", function() {
+    let camposRequeridos = ["nombre", "mail", "fecha", "dir"];
+    let camposCompletos = camposRequeridos.every(function(id) {
+        return document.getElementById(id).value.trim() !== "";
+    });
+    
+    if (camposCompletos) {
+        RegistrarDatos();
+    } else {
+        footerMensaje(`Todos los campos son requeridos`);
+    }
 });
 document.getElementById("boton2").addEventListener("click",function(){
     ultimaVenta()
@@ -37,6 +46,27 @@ let cambioRegistro = false;
 let datos = {};
 let ventas = [];
 let registroProductos = [];
+let error1 = `<span class="material-symbols-outlined">warning</span><br>
+<b>Todos los campos son requeridos</b>`
+let error2 = `<span class="material-symbols-outlined">warning</span><br>
+<b>Todos los campos son requeridos</b>`
+let footerError = document.getElementById("error");
+let errorCampos = document.createElement("div");
+
+function footerMensaje (mensaje) {
+    if (footerError.contains(errorCampos)) {
+        errorCampos.innerHTML = `<span class="material-symbols-outlined">warning</span><br>
+                                <p>${mensaje}</p>`;
+    } else {
+        errorCampos.innerHTML = `<span class="material-symbols-outlined">warning</span><br>
+                                <p>${mensaje}</p>`;
+        footerError.appendChild(errorCampos);
+        setTimeout(()=>{
+        footerError.removeChild(errorCampos);
+        }, 3000);
+    };
+
+};
 
 function RegistrarDatos(){
     let nombre = document.getElementById("nombre").value;
@@ -66,7 +96,7 @@ let parrafo2 = document.getElementById("p2");
 let registroActividades = document.getElementById("div2");
 let total = document.createElement("div");
 total.className = "divTotal";
-total.innerHTML = `<label>Costo mensual del servicio: </label><input type="number" id="totalIn"></input>`;
+total.innerHTML = `<label>Costo mensual del servicio: </label><input type="number" id="totalIn" readonly></input>`;
 let summitCont = document.createElement("div");
 summitCont.className = "SumButton";
 summitCont.innerHTML = `<button id="sumButton">Registrar</button>`;
@@ -85,9 +115,9 @@ function nuevaTabla() {
         let totalInic = precio * contInicial;
         contenedor.innerHTML = `<label>${actividad.producto}</label>
                                     <button class="boton-minus" data-id="${actividad.id}">-</button>
-                                    <span class="counter" data-id="${actividad.id}">0</span>
+                                    <span class="counter" data-id="${actividad.id}" readonly>0</span>
                                     <button class="boton-plus" data-id="${actividad.id}">+</button>
-                                    <input class="parcial" data-id="${actividad.id}" value="${totalInic}"></input>`;
+                                    <input class="parcial" data-id="${actividad.id}" value="${totalInic}" readonly></input>`;
         registroActividades.className = "container2"
         registroActividades.appendChild(contenedor);
     });
@@ -155,10 +185,21 @@ function nuevaTabla() {
     
     registroActividades.appendChild(total);
     registroActividades.appendChild(summitCont);
-    document.getElementById("sumButton").addEventListener("click", function(){
-        RegistrarDatos2();
+    document.getElementById("sumButton").addEventListener("click", function() {  
+        let actividadAgregada = false;
+        document.querySelectorAll('.counter').forEach(function(counter) {
+            if (parseInt(counter.innerText) > 0) {
+                actividadAgregada = true;
+            }
+        });
+     
+        if (actividadAgregada) {
+            RegistrarDatos2();
+        } else {
+            footerMensaje(`Debes agregar al menos una actividad`);
+        }
     });
-}
+};
 
 let cambioRegistro2 = false;
 let totalValue = 0;
