@@ -372,19 +372,14 @@ function ultimaVenta() {
 function generarPDF(venta) {
     var doc = new jsPDF();
 
-    // Encabezado
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
     doc.text("Factura", 105, 20, { align: "center" });
-
-    // Datos del cliente
     doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
     doc.text(`Fecha: ${venta.datos.fecha}`, 20, 30);
     doc.text(`Cliente: ${venta.datos.nombre}`, 20, 40);
     doc.text(`Domicilio: ${venta.datos.direccion}`, 20, 50);
-
-    // Detalles de la venta
     let y = 70;
     doc.setFont("helvetica", "bold");
     doc.text("Descripción", 20, y);
@@ -400,8 +395,6 @@ function generarPDF(venta) {
             doc.text(`${producto.cantidad}`, 80, y);
             doc.text(`$${producto.precio}`, 120, y);
             doc.text(`$${producto.total}`, 170, y);
-            
-            // Dibujar línea divisoria
             doc.setLineWidth(0.1);
             doc.line(20, y + 2, 190, y + 2);
             
@@ -409,13 +402,9 @@ function generarPDF(venta) {
         }
     });
 
-    // Total
     doc.setFont("helvetica", "bold");
     doc.text(`Total: $${venta.total}`, 140, y + 10);
-
-    // Pie de página
     doc.setFontSize(10);
-    doc.text("Gracias por su compra", 105, 270, { align: "center" });
-
+    doc.text("Gracias por su elegirnos", 105, 270, { align: "center" });
     doc.save('factura_venta.pdf');
-}
+};
