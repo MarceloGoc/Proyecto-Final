@@ -287,8 +287,8 @@ let indiceVentaActual = 0;
 function ultimaVenta() {
     let pElement = document.querySelector('body > p');
     if (pElement) {
-    pElement.remove();
-}
+        pElement.remove();
+    }
     while (div2.firstChild) {
         div2.removeChild(div2.firstChild);
     }
@@ -314,6 +314,7 @@ function ultimaVenta() {
         });
         contenedor.innerHTML += `<p>El costo mensual del servicio será de: $ ${venta.total}</p>`;
         contenedor.innerHTML += `<button class="borrarVenta" data-index="${indiceVentaActual}">Borrar venta</button>`;
+        contenedor.innerHTML += `<button class="generarPDF" data-index="${indiceVentaActual}">Generar PDF</button>`;
         let botonesBorrar = contenedor.querySelectorAll('.borrarVenta');
         botonesBorrar.forEach((boton) => {
             boton.addEventListener('click', function() {
@@ -323,15 +324,21 @@ function ultimaVenta() {
                     showDenyButton: true,
                     confirmButtonText: "Borrar",
                     denyButtonText: `Volver`
-                  }).then((result) => {
+                }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire("Borrado!", "", "success");
                         ventas.splice(index, 1);
                         localStorage.setItem('ventas', JSON.stringify(ventas));
-                        indiceVentaActual = 0; 
-                        ultimaVenta(); 
-                        } else if (result.isDenied) {}
-                  });                
+                        indiceVentaActual = 0;
+                        ultimaVenta();
+                    } else if (result.isDenied) {}
+                });
+            });
+        });
+        let botonesPDF = contenedor.querySelectorAll('.generarPDF');
+        botonesPDF.forEach((boton) => {
+            boton.addEventListener('click', function() {
+                generarPDF(venta);
             });
         });
         div2.appendChild(contenedor);
@@ -362,7 +369,53 @@ function ultimaVenta() {
     div2.appendChild(botonInicio);
 };
 
+function generarPDF(venta) {
+    var doc = new jsPDF();
 
+    // Encabezado
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Factura", 105, 20, { align: "center" });
 
+    // Datos del cliente
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text(`Fecha: ${venta.datos.fecha}`, 20, 30);
+    doc.text(`Cliente: ${venta.datos.nombre}`, 20, 40);
+    doc.text(`Domicilio: ${venta.datos.direccion}`, 20, 50);
 
+    // Detalles de la venta
+    let y = 70;
+    doc.setFont("helvetica", "bold");
+    doc.text("Descripción", 20, y);
+    doc.text("Cantidad", 80, y);
+    doc.text("Precio unitario", 120, y);
+    doc.text("Total", 170, y);
+    y += 10;
 
+    venta.productos.forEach((producto) => {
+        if (producto.cantidad > 0) {
+            doc.setFont("helvetica", "normal");
+            doc.text(`${producto.producto}`, 20, y);
+            doc.text(`${producto.cantidad}`, 80, y);
+            doc.text(`$${producto.precio}`, 120, y);
+            doc.text(`$${producto.total}`, 170, y);
+            
+            // Dibujar línea divisoria
+            doc.setLineWidth(0.1);
+            doc.line(20, y + 2, 190, y + 2);
+            
+            y += 10;
+        }
+    });
+
+    // Total
+    doc.setFont("helvetica", "bold");
+    doc.text(`Total: $${venta.total}`, 140, y + 10);
+
+    // Pie de página
+    doc.setFontSize(10);
+    doc.text("Gracias por su compra", 105, 270, { align: "center" });
+
+    doc.save('factura_venta.pdf');
+}
