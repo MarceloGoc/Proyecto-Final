@@ -5,7 +5,18 @@ document.getElementById("boton1").addEventListener("click", function() {
     });
     
     if (camposCompletos) {
-        RegistrarDatos();
+        Swal.fire({
+            title: "Quieres guardar los cambios?",
+            showDenyButton: true,
+            confirmButtonText: "Guardar",
+            denyButtonText: `Volver`
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire("Guardado!", "", "success");
+              RegistrarDatos();
+            } else if (result.isDenied) {
+            }
+          });
     } else {
         footerMensaje(`Todos los campos son requeridos`);
     }
@@ -43,7 +54,9 @@ function footerMensaje (mensaje) {
         footerError.appendChild(errorCampos);
         setTimeout(()=>{
         footerError.removeChild(errorCampos);
-        }, 3000);
+        }, 
+        
+        3000);
     };
 
 };
@@ -82,10 +95,10 @@ summitCont.className = "SumButton";
 summitCont.innerHTML = `<button id="sumButton">Registrar</button>`;
 
 function nuevaTabla() {
-    parrafo2.innerHTML = `<li><span class="verde">Bocas de Cable TV:<span> Es el servicio clasico con 80 canales. Solo puede haber un maximo de 5 por domicilio</li><br>
+    parrafo2.innerHTML = `<ul><li><span class="verde">Bocas de Cable TV:<span> Es el servicio clasico con 80 canales. Solo puede haber un maximo de 5 por domicilio</li><br>
     <li><span class="verde">Decos clasico HD y Smart 4k:<span> Debe haber una boca de cable por cada decodificador para poder cargarlos.<br>
     Se pueden convinar a pedido del cliente.</li><br>    
-    <li><span class="verde">Cable modem de internet 100 o 300 MB:<span> Solo se puede elegir un servicio por domicilio 100 o 300 MB</li>
+    <li><span class="verde">Cable modem de internet 100 o 300 MB:<span> Solo se puede elegir un servicio por domicilio 100 o 300 MB</li></ul>
     <p>El sistema no va a dejarte cargar actividades fuera de esos parametros. Es importante que acuerdes con el cliente </p>`
     actividades.forEach((actividad) => {
         let contenedor = document.createElement("div");
@@ -174,7 +187,18 @@ function nuevaTabla() {
         });
      
         if (actividadAgregada) {
-            RegistrarDatos2();
+            Swal.fire({
+                title: "Quieres guardar los cambios?",
+                showDenyButton: true,
+                confirmButtonText: "Guardar",
+                denyButtonText: `Volver`
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire("Guardado!", "", "success");
+                  RegistrarDatos2();
+                } else if (result.isDenied) {
+                }
+              });
         } else {
             footerMensaje(`Debes agregar al menos una actividad`);
         }
@@ -238,7 +262,7 @@ function nuevaTabla2(){
     let contenido = `
                      <p>En la fecha ${datos.fecha} se genera un pedido de instalación 
                      a nombre de ${datos.nombre}, con domicilio en ${datos.direccion}. 
-                     El mismo consta de: </p><br>`;
+                     El mismo consta de: </p><ul>`;
 
     registroProductos.forEach((producto) => {
         if (producto.cantidad > 0) {contenido += `<br><li class="lista"> ${producto.cantidad} ${producto.producto} por un parcial de $${producto.total}</li>`;
@@ -246,7 +270,7 @@ function nuevaTabla2(){
     });
 
 
-    contenido += `<br><br><p>El costo mensual del servicio será de: $ ${totalValue}</p>
+    contenido += `</ul><br><p>El costo mensual del servicio será de: $ ${totalValue}</p>
     <button class="reiniciar" id="reiniciar">Ir al inicio</button>`;
     registroFinal.innerHTML = contenido;
     h2.innerHTML = contenidoH2
@@ -282,10 +306,10 @@ function ultimaVenta() {
         contenedor.className = "uVenta";
         contenedor.innerHTML = `
             <h3>Venta ${indiceVentaActual + 1}</h3>
-            <p>En la fecha ${venta.datos.fecha} se generó una venta a nombre de ${venta.datos.nombre}, con domicilio en ${venta.datos.direccion}. El mismo consta de:</p>`;
+            <p>En la fecha ${venta.datos.fecha} se generó una venta a nombre de ${venta.datos.nombre}, con domicilio en ${venta.datos.direccion}. El mismo consta de:</p><ul>`;
         venta.productos.forEach((producto) => {
             if (producto.cantidad > 0) {
-                contenedor.innerHTML += `<li>${producto.cantidad} ${producto.producto} por un total de $${producto.total}</li>`;
+                contenedor.innerHTML += `<li>${producto.cantidad} ${producto.producto} por un parcial de $${producto.total}</li>`;
             }
         });
         contenedor.innerHTML += `<p>El costo mensual del servicio será de: $ ${venta.total}</p>`;
@@ -294,10 +318,20 @@ function ultimaVenta() {
         botonesBorrar.forEach((boton) => {
             boton.addEventListener('click', function() {
                 let index = this.getAttribute('data-index');
-                ventas.splice(index, 1);
-                localStorage.setItem('ventas', JSON.stringify(ventas));
-                indiceVentaActual = 0; 
-                ultimaVenta(); 
+                Swal.fire({
+                    title: "¿Quieres borrar la venta?",
+                    showDenyButton: true,
+                    confirmButtonText: "Borrar",
+                    denyButtonText: `Volver`
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire("Borrado!", "", "success");
+                        ventas.splice(index, 1);
+                        localStorage.setItem('ventas', JSON.stringify(ventas));
+                        indiceVentaActual = 0; 
+                        ultimaVenta(); 
+                        } else if (result.isDenied) {}
+                  });                
             });
         });
         div2.appendChild(contenedor);

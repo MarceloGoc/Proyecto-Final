@@ -4,29 +4,30 @@
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     text-decoration: none;
-    
     color: #ffff;
-    text-align: center;
+
     align-items: center;
 }
 
 body {
-
     background-size: cover;
     background-repeat: repeat;
     background-attachment: fixed;
     background-color: black;
+    text-align: center;
     background-size: auto;
     background-image: linear-gradient(rgba(5, 7 , 12, 0.75),rgba(5,7,12,0.75)), url(fondo2.png);
 }
 
 footer p {
+    color: #167554;
     padding: 0;
-    color: #167554
+    font-size: 20px;
+    opacity: none;
 }
 
-footer span {
-    color: rgb(187, 25, 25);
+footer {
+    text-align: center;
 }
 
 * button{
@@ -53,11 +54,12 @@ h3 {
     color: #04bd7d;
     margin-bottom: 7px;
     margin-top: 7px;
+    text-align: center;
 }
 
 h2 {
     color: #04bd7d;
-    
+    text-align: center;
 }
 p {
     padding: 20px;
@@ -65,7 +67,7 @@ p {
     justify-content: center;
     text-align: center;
     color: white;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 li {
@@ -84,7 +86,7 @@ li {
     max-width: 450px;
     background-color: #2c2f35;
     opacity: 0.9;
-    padding: 50px 60px 70px;
+    padding: 50px 60px 50px;
     text-align: center;
     border-radius: 25px;
 }
@@ -174,7 +176,7 @@ button{
 .container2 {
     background-color: #2c2f35;
     opacity: 0.9;
-    padding: 30px 60px;
+    padding: 15px;
     text-align: center;
     border-radius: 25px;
     max-width: 450px;
@@ -210,7 +212,6 @@ button{
 }
 
 
-    
 .uVenta {
     background-color: #2c2f35;
     opacity: 0.9;
@@ -218,7 +219,29 @@ button{
     border-radius: 25px;
     max-width: 450px;
     margin: 0 auto;
+    text-align: center;
+}
+
+
+
+.swal2-title {
+    color: #04bd7d;
+    background-color: #2c2f35;
+    border-radius: 20px;
+}
+
+.swal2-modal {
+    background-color: #2c2f35;
+    border-radius: 20px;
+}
+
+.material-symbols-outlined{
+    color: red;
+    font-size: 38px !important;    
+}
+
+.p2 {
     display: flex;
     flex-direction: column;
-    text-align: left;
 }
+
