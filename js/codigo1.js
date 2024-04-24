@@ -24,11 +24,12 @@ document.getElementById("boton1").addEventListener("click", function() {
 document.getElementById("boton2").addEventListener("click",function(){
     ultimaVenta()
 });
+document.getElementById("fecha").valueAsDate = new Date();
 
 let actividades = [];
 let cambioRegistro = false;
 let datos = {};
-let ventas = [];
+
 let registroProductos = [];
 let error1 = `<span class="material-symbols-outlined">warning</span><br>
 <b>Todos los campos son requeridos</b>`

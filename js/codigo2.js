@@ -200,3 +200,63 @@ function generarPDF(venta) {
     doc.text("Gracias por su elegirnos", 105, 270, { align: "center" });
     doc.save('factura_venta.pdf');
 };
+
+try {
+    let ventasGuardadas = localStorage.getItem('ventas');
+    let ventas = ventasGuardadas ? JSON.parse(ventasGuardadas) : [];
+    if (ventas.length === 0) {
+        agregarVentasPorDefecto();
+    }
+} catch (error) {
+    console.error('Error al acceder al array de ventas en el local storage:', error);
+};
+
+function agregarVentasPorDefecto() {
+    let ventasPorDefecto = [
+        {
+            datos: {
+                nombre: "Cliente 1",
+                mail: "cliente1@ejemplo.com",
+                fecha: "2024-04-25",
+                direccion: "Calle 123"
+            },
+            productos: [
+                { id: 4, producto: "Internet 300 MB", cantidad: 1, precio: 1000, total: 1000 }
+            ],
+            total: 1000
+        },
+        {
+            datos: {
+                nombre: "Cliente 2",
+                mail: "cliente2@ejemplo.com",
+                fecha: "2024-04-25",
+                direccion: "Calle 456"
+            },
+            productos: [
+                { id: 1, producto: "Boca de Cable TV", cantidad: 5, precio: 500, total: 2500 },
+                { id: 2, producto: "Deco clásico HD", cantidad: 2, precio: 250, total: 500 },
+                { id: 3, producto: "Smart TV 4K", cantidad: 2, precio: 650, total: 1300 },
+                { id: 4, producto: "Internet 100 MB", cantidad: 1, precio: 750, total: 750 }
+            ],
+            total: 5050
+        },
+        {
+            datos: {
+                nombre: "Cliente 3",
+                mail: "cliente3@ejemplo.com",
+                fecha: "2024-04-25",
+                direccion: "Calle 678"
+            },
+            productos: [
+                { id: 1, producto: "Boca de Cable TV", cantidad: 5, precio: 500, total: 2500 },
+                { id: 2, producto: "Deco clásico HD", cantidad: 2, precio: 250, total: 500 },
+                { id: 3, producto: "Smart TV 4K", cantidad: 2, precio: 650, total: 1300 },
+                { id: 4, producto: "Internet 300 MB", cantidad: 1, precio: 1000, total: 1000 }
+            ],
+            total: 5300
+        },
+
+    ];
+    ventas = ventasPorDefecto;
+    localStorage.setItem('ventas', JSON.stringify(ventas));
+};
