@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--JS-->
-    <script defer src="./codigo.js"></script>
+    <script defer src="./js/codigo1.js"></script>
+    <script defer src="./js/codigo2.js"></script>
     <!--CSS-->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/CSS/style.css">
     <!--Material Symbols Google-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title> Venta de servicios </title>
@@ -14,11 +15,11 @@
 <body>
     <h1>TECO</h1>
     <h3 id="h3">Bienvenidos a Teco!</h3>
-    <P id="p1">Por favor, para cargar nuestros servicios 
+    <P id="p1">Para cargar nuestros servicios,
             complete el registro con los datos del cliente 
-            y haga click en empezar.<br>
-            Al finalizar el registro podra enviar el comprobante de servicio al 
-            solicitante </P>
+            y haga click en "empezar".<br>
+            Al finalizar el registro,en la sección ventas, podrá enviar el comprobante de servicio al 
+            solicitante en formato PDF</P>
     <div id="p2" class="p2"></div>
     <div id="div1" class="container">
         <form id="datosForm" class="form1">
@@ -31,15 +32,17 @@
             <label>Fecha</label><br>
                 <input type="date" id="fecha" required><br><br>
             <button type="button" id="boton1" class="boton">Empezar</button>
-            <button type="button" id="boton2" class="boton">Última venta</button>    
+            <button type="button" id="boton2" class="boton">Ventas</button>    
         </form>
     </div>
     <div id="div2" class="div2"></div>
     <div id="div3" class="container3"></div>
     <footer id="error"></footer>
-            <!--SweetAlert-->
+    <!--SweetAlert-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <!--jspdf-->
+    <!--jspdf-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <!--Luxon-->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
 </body>
 </html>

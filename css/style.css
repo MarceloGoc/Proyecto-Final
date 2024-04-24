@@ -16,7 +16,7 @@ body {
     background-color: black;
     text-align: center;
     background-size: auto;
-    background-image: linear-gradient(rgba(5, 7 , 12, 0.75),rgba(5,7,12,0.75)), url(fondo2.png);
+    background-image: linear-gradient(rgba(5, 7 , 12, 0.75),rgba(5,7,12,0.75)), url(/img/fondo2.png);
 }
 
 footer p {
