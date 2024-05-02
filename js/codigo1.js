@@ -178,7 +178,7 @@ function nuevaTabla() {
     
     registroActividades.appendChild(total);
     registroActividades.appendChild(summitCont);
-    document.getElementById("sumButton").addEventListener("click", function() {  
+    document.getElementById("sumButton").addEventListener("click", async function() {  
         let actividadAgregada = false;
         document.querySelectorAll('.counter').forEach(function(counter) {
             if (parseInt(counter.innerText) > 0) {

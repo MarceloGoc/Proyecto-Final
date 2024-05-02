@@ -109,7 +109,7 @@ function ultimaVenta() {
         contenedor.innerHTML += `<button class="generarPDF" data-index="${indiceVentaActual}">Generar PDF</button>`;
         let botonesBorrar = contenedor.querySelectorAll('.borrarVenta');
         botonesBorrar.forEach((boton) => {
-            boton.addEventListener('click', function() {
+            boton.addEventListener('click', async function() {
                 let index = this.getAttribute('data-index');
                 Swal.fire({
                     title: "¿Quieres borrar la venta?",
@@ -161,7 +161,7 @@ function ultimaVenta() {
     div2.appendChild(botonInicio);
 };
 
-function generarPDF(venta) {
+async function generarPDF(venta) {
     var doc = new jsPDF();
 
     doc.setFont("helvetica", "bold");
