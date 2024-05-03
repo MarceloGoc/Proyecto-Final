@@ -197,7 +197,7 @@ async function generarPDF(venta) {
     doc.setFont("helvetica", "bold");
     doc.text(`Total: $${venta.total}`, 140, y + 10);
     doc.setFontSize(10);
-    doc.text("Gracias por su elegirnos", 105, 270, { align: "center" });
+    doc.text("Gracias por elegirnos", 105, 270, { align: "center" });
     doc.save('factura_venta.pdf');
 };
 
